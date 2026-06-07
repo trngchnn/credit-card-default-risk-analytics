@@ -11,13 +11,30 @@
 ## 2. Đối chiếu Yêu cầu Đề thi và Mức độ hoàn thiện của Nhóm
 Trận chiến phòng thi yêu cầu nhóm phải ứng dụng tư duy phân tích dữ liệu để giải quyết bài toán quản trị và tối ưu danh mục tín dụng. Dưới đây là bảng đối chiếu chi tiết giữa các hạng mục cốt lõi của đề bài tự luận và giải pháp thực tế nhóm đã hoàn thiện trong 90 phút:
 
-| Nội dung yêu cầu từ Đề thi | Giải pháp Thực tế Nhóm đã Hoàn thiện trong Code
-|---|---|---|
-| **Phân tích Khám phá & Tiền xử lý** <br>- Khảo sát cấu trúc phân phối dữ liệu và làm sạch biến. | - Thực hiện thống kê mô tả toán học (`describe`) để nắm bắt các tham số tập trung (Mean, Std, Min, Max, Tứ phân vị). <br>- Loại bỏ cột định danh `ID` để tối ưu hóa không gian biến. 
-| **Xác định yếu tố phân tách rủi ro** <br>- Tìm ra thuộc tính hành vi có sức mạnh phân loại nợ xấu cao nhất. | - Khai phá và định vị thành công thuộc tính `PAY_0` (Lịch sử thanh toán tháng gần nhất) là chỉ báo mạnh nhất. <br>- Chứng minh logic: Giá trị âm (thanh toán đúng/trước hạn) thể hiện sức khỏe tài chính tốt; giá trị dương (chậm trả) khiến rủi ro nợ xấu tăng theo hàm mũ.
-| **Phân khúc rủi ro danh mục** <br>- Chia nhóm khách hàng dựa trên dữ liệu hành vi. | - Kỹ thuật hóa tập dữ liệu thành 3 phân tầng tài chính rõ rệt bằng cấu trúc điều kiện lọc: <br>1. *High Risk:* Nhóm phát sinh tỷ lệ default thực tế lên tới 92.9%. <br>2. *Medium Risk:* Nhóm chuyển giao biến động hành vi. <br>3. *Low Risk:* Nhóm an toàn, chiếm gần 50% danh mục nhưng chỉ gây ra 1.2% tỷ lệ default. 
-| **Đề xuất Chiến lược chiến thuật** <br>- Đưa ra khuyến nghị hành động cụ thể cho từng nhóm. | - Thiết lập ma trận kịch bản hành động trực tiếp: <br>- *High Risk:* Giảm ngay 50% hạn mức tín dụng hiện tại, kích hoạt hệ thống nhắc nợ tự động tần suất cao. <br>- *Medium Risk:* Áp dụng nhắc nợ tự động trong tuần để chặn chuyển nhóm nợ. <br>- *Low Risk:* Tập trung nguồn lực Cross-selling (bán chéo sản phẩm cao cấp). 
-| **Định lượng Tác động Kinh doanh** <br>- Ước tính hiệu quả kinh tế biên (Business Impact) cho doanh nghiệp. | - Chuyển con số kỹ thuật thành bài toán tài chính với các chỉ số đo lường hiệu quả cụ thể: <br>- Tiết kiệm 35% - 40% chi phí xử lý nợ xấu từ nhóm High Risk. <br>- Giảm 15% - 20% tỷ lệ default tại nhóm Medium Risk. <br>- Thúc đẩy tăng trưởng doanh thu 10% - 15% từ việc khai thác nhóm Low Risk.
+## 2. Đối chiếu Yêu cầu Đề thi và Giải pháp của Nhóm
+Trận chiến phòng thi yêu cầu nhóm phải ứng dụng tư duy phân tích dữ liệu để giải quyết bài toán quản trị và tối ưu danh mục tín dụng. Dưới đây là cấu trúc đối chiếu giữa các hạng mục câu hỏi trong đề thi tự luận và giải pháp thực tế nhóm đã hoàn thiện trong 90 phút áp lực cao:
+
+### Câu 1a: Thống kê mô tả cơ bản và Tiền xử lý dữ liệu
+* **Yêu cầu đề thi:** Khảo sát cấu trúc phân phối dữ liệu, xem xét các tham số tập trung và làm sạch biến đầu vào.
+* **Giải pháp của nhóm:** - Triển khai hàm thống kê mô tả toán học (`describe`) để nắm bắt nhanh các chỉ số nền tảng bao gồm giá trị trung bình (Mean), độ lệch chuẩn (Std), khoảng biến thiên (Min, Max) và các điểm phân vị hệ thống.
+  - Loại bỏ thuộc tính định danh `ID` ra khỏi không gian biến nhằm tối ưu hóa bộ nhớ và tăng tốc độ xử lý cho các tiến trình phân tích tiếp theo.
+
+### Câu 1b: Khai phá hành vi và Xác định yếu tố phân tách rủi ro
+* **Yêu cầu đề thi:** Xác định thuộc tính hành vi mang tính quyết định, có sức mạnh phân loại và bóc tách rủi ro nợ xấu cao nhất trong danh mục.
+* **Giải pháp của nhóm:** - Thực hiện kỹ thuật cô lập và phân tích sâu thuộc tính dòng thời gian gần nhất `PAY_0` (Lịch sử trạng thái thanh toán của tháng gần nhất).
+  - Chứng minh thành công logic toán tử phân tách: Khi `PAY_0` mang giá trị âm (khách hàng thanh toán đúng hạn hoặc trước hạn) thể hiện sức khỏe tài chính an toàn; ngược lại, khi `PAY_0` chuyển sang giá trị dương (chậm trả tăng dần) rủi ro phát sinh nợ xấu sẽ tăng trưởng theo hàm mũ.
+
+### Câu 2a: Mô hình hóa Phân khúc rủi ro danh mục
+* **Yêu cầu đề thi:** Chia nhóm cấu trúc danh mục khách hàng dựa trên các dữ liệu hành vi đã khai phá.
+* **Giải pháp của nhóm:** - Ứng dụng kỹ thuật lọc và gán nhãn điều kiện toán học để cấu trúc hóa tập dữ liệu thành 3 phân tầng rủi ro tài chính biệt lập:
+    1. *High Risk (Rủi ro cao):* Nhóm tập trung các hành vi chậm trả kéo dài, sở hữu tỷ lệ nợ xấu thực tế (`default`) lên tới **92.9%**.
+    2. *Medium Risk (Rủi ro trung bình):* Nhóm khách hàng nằm trong vùng chuyển giao biến động hành vi.
+    3. *Low Risk (Rủi ro thấp):* Nhóm khách hàng an toàn, chiếm quy mô lớn nhất (gần 50% danh mục) nhưng chỉ gây ra **1.2%** tỷ lệ nợ xấu hệ thống.
+
+### Câu 2b: Đề xuất Chiến lược hành động và Định lượng Tác động kinh doanh
+* **Yêu cầu đề thi:** Đóng vai trò là "Data Strategist" để đề xuất giải pháp hành động cụ thể cho từng nhóm và ước tính hiệu quả kinh tế biên (Business Impact) mang lại cho doanh nghiệp.
+* **Giải pháp của nhóm:** - Thiết lập ma trận kịch bản hành động trực tiếp mang tính thực thi cao: Giảm 50% hạn mức đối với nhóm *High Risk*, áp dụng kịch bản nhắc nợ tự động trong tuần cho nhóm *Medium Risk*, và tập trung nguồn lực bán chéo sản phẩm cao cấp (Cross-selling) cho nhóm *Low Risk*.
+  - Dịch chuyển kết quả kỹ thuật thành bài toán tài chính thông qua việc định lượng các chỉ số tác động: Ước tính tiết kiệm từ **35% - 40% chi phí xử lý nợ xấu** từ nhóm High Risk; giảm từ 15% - 20% tỷ lệ chuyển nhóm nợ tại nhóm Medium Risk; và thúc đẩy tăng trưởng doanh thu từ 10% - 15% từ việc khai thác nhóm khách hàng an toàn.
 
 ## 3. Dữ liệu sử dụng (Dataset)
 Bộ dữ liệu sử dụng là *Default of Credit Card Clients Dataset* được cung cấp trực tiếp trong phòng thi.
